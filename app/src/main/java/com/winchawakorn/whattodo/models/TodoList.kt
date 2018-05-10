@@ -15,16 +15,28 @@ class TodoList private constructor() : Observable() {
         return list
     }
 
-    fun addItem(item: TodoListItem) {
-        list.add(item)
+    fun notifyObserver() {
         setChanged()
         notifyObservers()
     }
 
+    fun add(item: TodoListItem) {
+        list.add(item)
+        notifyObserver()
+    }
+
     fun remove(item: TodoListItem) {
+        if (!list.contains(item))
+            return
         list.remove(item)
-        setChanged()
-        notifyObservers()
+        notifyObserver()
+    }
+
+    fun remove(index: Int) {
+        if (list.size == 0)
+            return
+        list.removeAt(index);
+        notifyObserver()
     }
 
     private object Holder {
