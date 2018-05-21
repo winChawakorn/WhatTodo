@@ -21,7 +21,7 @@ class WelcomeActivity : AppCompatActivity() {
         handler.postDelayed(Runnable {
             val intent = Intent(this, TodoListActivity::class.java);
             startActivity(intent);
-        }, 3000)
+        }, 2000)
     }
 
 }

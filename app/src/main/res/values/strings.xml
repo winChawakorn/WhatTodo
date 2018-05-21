@@ -4,4 +4,7 @@
     <string name="title_activity_todo_list">todoListActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="title_activity_what_todo">WhatTodoActivity</string>
+    <string name="title_activity_filter">FilterActivity</string>
 </resources>

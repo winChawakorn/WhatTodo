@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_todo_list.*
 import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
 import android.widget.EditText
+import android.content.Intent
 
 
 class TodoListActivity : AppCompatActivity(), TodoListView {
@@ -49,6 +50,14 @@ class TodoListActivity : AppCompatActivity(), TodoListView {
         })
     }
 
+    //Make back button navigate to home screen
+    override fun onBackPressed() {
+        val startMain = Intent(Intent.ACTION_MAIN)
+        startMain.addCategory(Intent.CATEGORY_HOME)
+        startMain.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(startMain)
+    }
+
     override fun setTodoList(todoList: ArrayList<String>) {
         if (todoList.size == 0)
             todoList.add("Nothing to do")
@@ -59,7 +68,7 @@ class TodoListActivity : AppCompatActivity(), TodoListView {
     fun onAddClicked(view: View) {
         val alertDialog = AlertDialog.Builder(this@TodoListActivity).create()
         alertDialog.setTitle("Add")
-        alertDialog.setMessage("What do you want to add?")
+        alertDialog.setMessage("What would you like to add?")
         val et = EditText(this)
         alertDialog.setView(et)
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "add",
@@ -74,9 +83,9 @@ class TodoListActivity : AppCompatActivity(), TodoListView {
         alertDialog.show()
     }
 
-    fun changeActivity() {
-//        val intent = Intent(this, TodoListActivity::class.java);
-//        startActivity(intent);
+    fun onWhattodoClicked(view: View) {
+        val intent = Intent(this, FilterActivity::class.java);
+        startActivity(intent);
     }
 
 }

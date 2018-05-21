@@ -11,6 +11,14 @@ class TodoList private constructor() : Observable() {
         list = ArrayList()
     }
 
+    private object Holder {
+        val INSTANCE = TodoList()
+    }
+
+    companion object {
+        val instance: TodoList by lazy { Holder.INSTANCE }
+    }
+
     fun getList(): ArrayList<TodoListItem> {
         return list
     }
@@ -37,13 +45,5 @@ class TodoList private constructor() : Observable() {
             return
         list.removeAt(index);
         notifyObserver()
-    }
-
-    private object Holder {
-        val INSTANCE = TodoList()
-    }
-
-    companion object {
-        val instance: TodoList by lazy { Holder.INSTANCE }
     }
 }
