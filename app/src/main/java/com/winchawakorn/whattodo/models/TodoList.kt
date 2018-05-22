@@ -1,5 +1,6 @@
 package com.winchawakorn.whattodo.models
 
+import android.os.Parcelable
 import com.winchawakorn.whattodo.presenters.TodoListPresenter
 import java.util.*
 import kotlin.collections.ArrayList

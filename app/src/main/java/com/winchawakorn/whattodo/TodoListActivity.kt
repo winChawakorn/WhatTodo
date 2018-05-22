@@ -15,6 +15,7 @@ import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
 import android.widget.EditText
 import android.content.Intent
+import android.os.PersistableBundle
 
 
 class TodoListActivity : AppCompatActivity(), TodoListView {
@@ -58,6 +59,22 @@ class TodoListActivity : AppCompatActivity(), TodoListView {
         startActivity(startMain)
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if (savedInstanceState == null)
+            return
+        var list = savedInstanceState!!.getParcelableArrayList<TodoListItem>("todolist")
+        if (list != null) {
+            TodoList.instance.getList().clear()
+            TodoList.instance.getList().addAll(list)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putParcelableArrayList("todolist", TodoList.instance.getList())
+    }
+
     override fun setTodoList(todoList: ArrayList<String>) {
         if (todoList.size == 0)
             todoList.add("Nothing to do")
@@ -74,7 +91,8 @@ class TodoListActivity : AppCompatActivity(), TodoListView {
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "add",
                 DialogInterface.OnClickListener { dialog, which ->
                     dialog.dismiss()
-                    TodoList.instance.add(TodoListItem(et.text.toString().trim(), TodoListItem.Tag.ADD_BY_USER.tag, ""))
+                    if (!et.text.equals(""))
+                        TodoList.instance.add(TodoListItem(et.text.toString().trim(), TodoListItem.Tag.ADD_BY_USER.tag, ""))
                 })
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "cancel",
                 DialogInterface.OnClickListener { dialog, which ->
