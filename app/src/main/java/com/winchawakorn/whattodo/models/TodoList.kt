@@ -42,7 +42,7 @@ class TodoList private constructor() : Observable() {
     }
 
     fun remove(index: Int) {
-        if (list.size == 0)
+        if (list.size == 0 || index >= list.size || index < 0)
             return
         list.removeAt(index);
         notifyObserver()
